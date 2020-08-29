@@ -1,0 +1,66 @@
+using System;
+using Lizpy.Syntax;
+using Lizpy.Internal;
+
+// reserved (cannot appear in symbols at all): (){}[]"\
+
+ironmeta LizpyParser<char, SExpression> : Matcher<char, SExpression> {
+    TopLevelExpression = Trim(SExpression);
+
+    SExpression = Atom | List | Map | Array;
+
+    Trim :pattern = Whitespace* pattern:p Whitespace* -> { return p; };
+
+    // anywhere you can have whitespace you can have a comment
+    Whitespace = ' ' | '\r' | '\n' | '\t' | Comment;
+
+    Comment = ';' /[^\n]+/ '\n';
+
+    Atom = Number | String | Boolean | Symbol;
+
+    Number =
+       (Decimal | Scientific):d -> { return new DecimalExpression(d.StartIndex, d.NextIndex, Double.Parse(d.InputString())); } |
+       Integer:i -> { return new IntegerExpression(i.StartIndex, i.NextIndex, Int32.Parse(i.InputString())); };
+
+    Decimal = Sign? Digit+ '.' Digit*;
+
+    Sign = '+' | '-';
+    Digit = /[0-9]/;
+
+    Scientific = Decimal ('e' | 'E') Integer;
+
+    Integer = Sign? Digit+;
+
+    String = ('"' StringCharacterExpression*:cs '"'):str -> { return new StringExpression(str.StartIndex, str.NextIndex, cs.ResultsAs<CharacterExpression>()); };
+
+    StringCharacterExpression =
+        /[^"\\]/:c -> { return new CharacterExpression(c); } |
+        EscapeSequence;
+
+    EscapeSequence =
+        "\\n" -> { return new CharacterExpression('\n'); } |
+        "\\r" -> { return new CharacterExpression('\r'); } |
+        "\\t" -> { return new CharacterExpression('\t'); } |
+        "\\0" -> { return new CharacterExpression('\0'); } |
+        ('\\' .:c) -> { return new CharacterExpression(c); };
+
+    Boolean =
+        "true":v -> { return new BooleanExpression(v.StartIndex, v.NextIndex, true); } |
+         "false":v -> { return new BooleanExpression(v.StartIndex, v.NextIndex, false); };
+
+    Symbol = /[A-Za-z\`~!@#$%^&*\-_=+|;:,<\.>\/?][0-9A-Za-z\`~!@#$%^&*\-_=+|;:',<\.>\/?]*/:s Metadata?:m ->
+        { return new SymbolExpression(s.StartIndex, s.NextIndex, s.InputString(), m?.ResultAs<MapExpression>()); };
+
+    Metadata = /\s+^/ Map:m -> { return m; };
+
+    Map = ('{' Whitespace* KeyValuePair*:kvps '}'):m -> { return new MapExpression(m.StartIndex, m.NextIndex, kvps.ResultsAs<ListExpression>()); };
+
+    KeyValuePair = Atom:k Whitespace+ SExpression:v Whitespace* ','? Whitespace* -> { return new ListExpression(k.StartIndex, v.NextIndex, new SExpression[] { k, v }); };
+
+    List = ('(' Whitespace* ListItem(SExpression)*:items ')'):l -> { return new ListExpression(l.StartIndex, l.NextIndex, items.Results); };
+
+    ListItem :pattern = pattern:item Whitespace* ','? Whitespace* -> { return item; };
+
+    // Arrays can only contain atoms, not complex types
+    Array = ('[' Whitespace* ListItem(Atom)*:items ']'):a -> { return new ArrayExpression(a.StartIndex, a.NextIndex, items.ResultsAs<AtomExpression>()); };
+}

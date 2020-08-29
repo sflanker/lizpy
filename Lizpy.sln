@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lizpy", "Lizpy.csproj", "{87DE6BAA-06AE-4B40-BB93-3AEDD41F7545}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{8F2AFBDE-5410-434F-AEE0-5D0CEC506639}"
+ProjectSection(SolutionItems) = preProject
+	..\..\..\..\Unity Projects\VizzyPlusPlus\Assets\ModTools\UI\Xml\Vizzy\VizzyToolbox.xml = ..\..\..\..\Unity Projects\VizzyPlusPlus\Assets\ModTools\UI\Xml\Vizzy\VizzyToolbox.xml
+	..\..\..\..\Library\Application Support\com.jundroo.SimpleRockets2\UserData\FlightPrograms\All Operators.xml = ..\..\..\..\Library\Application Support\com.jundroo.SimpleRockets2\UserData\FlightPrograms\All Operators.xml
+	..\..\..\..\Library\Application Support\com.jundroo.SimpleRockets2\UserData\FlightPrograms\All Craft Information.xml = ..\..\..\..\Library\Application Support\com.jundroo.SimpleRockets2\UserData\FlightPrograms\All Craft Information.xml
+	..\..\..\..\Library\Application Support\com.jundroo.SimpleRockets2\UserData\FlightPrograms\Custom Expression Example.xml = ..\..\..\..\Library\Application Support\com.jundroo.SimpleRockets2\UserData\FlightPrograms\Custom Expression Example.xml
+EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{87DE6BAA-06AE-4B40-BB93-3AEDD41F7545}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87DE6BAA-06AE-4B40-BB93-3AEDD41F7545}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87DE6BAA-06AE-4B40-BB93-3AEDD41F7545}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87DE6BAA-06AE-4B40-BB93-3AEDD41F7545}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
