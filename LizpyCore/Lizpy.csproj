@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net471</TargetFramework>
+        <LangVersion>7</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="IronMeta" Version="4.4.5" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="Jundroo.ModTools, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <HintPath>../Library/Jundroo.ModTools.dll</HintPath>
+        </Reference>
+        <Reference Include="ModApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <HintPath>../Library/ModApi.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <HintPath>../Library/Unity/UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+        <Exec Command="mono $(NuGetPackageRoot)/ironmeta/4.4.5/tools/net472/IronMeta.App.exe -f -n Lizpy LizpyParser.ironmeta" />
+    </Target>
+
+</Project>

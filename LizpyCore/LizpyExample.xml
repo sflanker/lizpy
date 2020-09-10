@@ -1,0 +1,114 @@
+<Program>
+  <Variables>
+    <Variable name="namespace__variableOne" number="0" />
+    <Variable name="namespace__variableTwo">
+      <Items />
+    </Variable>
+  </Variables>
+  <Instructions>
+    <CustomInstruction callFormat="Custom Inst (0)" format="Custom Inst |arg|" name="namespace__customInstOne" id="0" style="custom-instruction" pos="65,82" />
+    <DisplayMessage id="1" style="display">
+      <StringOp op="join" style="join">
+        <Constant text="Example " />
+        <CallCustomExpression call="testlib__aPlusB" style="call-custom-expression">
+          <Variable list="false" local="true" variableName="arg" />
+          <Constant number="42" />
+        </CallCustomExpression>
+      </StringOp>
+    </DisplayMessage>
+  </Instructions>
+  <Instructions>
+    <Event event="FlightStart" id="2" style="flight-start" pos="125,25" />
+    <LogMessage id="3" style="comment">
+      <Constant style="comment-text" canReplace="false" text="This is a sample flight program" />
+    </LogMessage>
+    <SetVariable id="4" style="set-variable">
+      <Variable list="false" local="false" variableName="namespace__variableOne" />
+      <Constant number="4" />
+    </SetVariable>
+    <SetVariable id="5" style="set-variable">
+      <Variable list="false" local="false" variableName="namespace__variableTwo" />
+      <Constant number="2" />
+    </SetVariable>
+    <CallCustomInstruction call="namespace__customInstOne" id="6" style="call-custom-instruction">
+      <CallCustomExpression call="namespace__customExprOne" style="call-custom-expression">
+        <Variable list="false" local="false" variableName="namespace__variableOne" />
+        <Variable list="false" local="false" variableName="namespace__variableTwo" />
+      </CallCustomExpression>
+    </CallCustomInstruction>
+    <WaitSeconds id="7" style="wait-seconds">
+      <Constant number="3" />
+    </WaitSeconds>
+    <While id="8" style="while">
+      <Comparison op="g" style="op-gt">
+        <CraftProperty property="Fuel.FuelInStage" style="prop-fuel" />
+        <Constant number="0" />
+      </Comparison>
+      <Instructions>
+        <DisplayMessage id="9" style="display">
+          <CallCustomExpression call="namespace__repeat" style="call-custom-expression">
+            <Constant text=". " />
+            <BinaryOp op="%" style="op-mod">
+              <MathFunction function="round" style="op-math">
+                <CraftProperty property="Time.TimeSinceLaunch" style="prop-time" />
+              </MathFunction>
+              <Constant number="3" />
+            </BinaryOp>
+          </CallCustomExpression>
+        </DisplayMessage>
+        <WaitSeconds id="10" style="wait-seconds">
+          <Constant number="0" />
+        </WaitSeconds>
+      </Instructions>
+    </While>
+  </Instructions>
+  <Instructions>
+    <LogMessage id="11" style="comment" pos="-50,10">
+      <Constant style="comment-text" canReplace="false" text="Comments can be defined as top level expressions" />
+    </LogMessage>
+  </Instructions>
+  <Instructions>
+    <LogMessage id="12" style="comment" pos="-50,30">
+      <Constant style="comment-text" canReplace="false" text="Chains of expressions can also be top level declarations providedthey are enclosed in a do block" />
+    </LogMessage>
+    <DisplayMessage id="13" style="display">
+      <Constant text="This never runs" />
+    </DisplayMessage>
+  </Instructions>
+  <Expressions>
+    <CustomExpression callFormat="testlib__aPlusB (0) (1)" format="testlib__aPlusB |a| |b| return (0)" name="testlib__aPlusB" style="custom-expression">
+      <BinaryOp op="+" style="op-add">
+        <Variable list="false" local="true" variableName="a" />
+        <Variable list="false" local="true" variableName="b" />
+      </BinaryOp>
+    </CustomExpression>
+    <CustomExpression callFormat="Custom Expr takes (0) and (1)" format="Custom Expr takes |arg1| and |arg2| return (0)" name="namespace__customExprOne" style="custom-expression" pos="24.53,-235.96">
+      <BinaryOp op="+" style="op-add">
+        <BinaryOp op="*" style="op-mul">
+          <Constant number="10" />
+          <Variable list="false" local="true" variableName="arg1" />
+        </BinaryOp>
+        <Variable list="false" local="true" variableName="arg2" />
+      </BinaryOp>
+    </CustomExpression>
+    <CustomExpression callFormat="namespace__repeat (0) (1)" format="namespace__repeat |str| |times| return (0)" name="namespace__repeat" style="custom-expression">
+      <Conditional style="conditional">
+        <Comparison op="le" style="op-lte">
+          <Variable list="false" local="true" variableName="times" />
+          <Constant number="0" />
+        </Comparison>
+        <Constant text="" />
+        <StringOp op="join" style="join">
+          <Variable list="false" local="true" variableName="str" />
+          <CallCustomExpression call="namespace__repeat" style="call-custom-expression">
+            <Variable list="false" local="true" variableName="str" />
+            <BinaryOp op="-" style="op-sub">
+              <Variable list="false" local="true" variableName="times" />
+              <Constant number="1" />
+            </BinaryOp>
+          </CallCustomExpression>
+        </StringOp>
+      </Conditional>
+    </CustomExpression>
+  </Expressions>
+</Program>

@@ -1,0 +1,44 @@
+(program "namespace"
+    (import "Dependency.lizpy")
+
+    ; This is a variable declaration
+    (declare variableOne)
+
+    ; This is a list variable declaration
+    (declarel variableTwo)
+
+    ; This is a custom expression declaration
+    (defexpr customExprOne ^{ :position [24.53 -235.96], :format "Custom Expr takes % and %" }
+        [arg1 arg2]
+        (+ (* 10 arg1) arg2))
+
+    ; This is a custom instruction declaration
+    (definst customInstOne ^{ :position [65 82], :format "Custom Inst %" }
+        [arg]
+        (display (concat "Example " (testlib/aPlusB arg 42))))
+
+    (on-start ^{ :position [125 25] }
+        (comment "This is a sample flight program")
+        (set! variableOne 4)
+        (set! variableTwo 2)
+        (customInstOne (namespace/customExprOne variableOne variableTwo))
+        (wait 3)
+        (while (> (craft/info :Fuel.FuelInStage) 0)
+            (display (repeat ". " (% (round (craft/info :Time.TimeSinceLaunch)) 3)))
+            (wait 0)))
+
+    (defexpr repeat [str times] (if (<= times 0) "" (concat str (repeat str (- times 1)))))
+
+    ; (defexpr' map [selector' list]
+    ;     (if (= (length list) 0)
+    ;         []
+    ;         (cons (selector' (first list)) (map selector' (rest list)))))
+
+    (comment ^{:position [-50, 10]} "Comments can be defined as top level expressions")
+
+    (do ^{:position [-50, 30]}
+        (comment
+            "Chains of expressions can also be top level declarations provided
+            they are enclosed in a do block")
+        (display "This never runs"))
+)

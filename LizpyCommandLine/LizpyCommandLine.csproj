@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <ProjectGuid>{BDD376C5-5672-4942-AE3B-6CF381CAEC16}</ProjectGuid>
+        <OutputType>Exe</OutputType>
+        <RootNamespace>Lizpy.CommandLine</RootNamespace>
+        <AssemblyName>clizpy</AssemblyName>
+        <TargetFramework>net471</TargetFramework>
+        <LangVersion>7</LangVersion>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin/Debug/</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin/Release/</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Reference Include="ModApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <HintPath>../Library/ModApi.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="../LizpyCore/Lizpy.csproj">
+            <Project>{6fac5edc-0176-43c4-9d33-67fe7d01f3c2}</Project>
+            <Name>Lizpy</Name>
+        </ProjectReference>
+    </ItemGroup>
+
+</Project>
