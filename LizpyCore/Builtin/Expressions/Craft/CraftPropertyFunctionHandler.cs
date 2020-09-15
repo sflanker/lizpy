@@ -153,9 +153,9 @@ namespace Lizpy.Builtin.Expressions.Craft {
 
                     return exp;
                 }
-                case "part-info" when expression.Items.Count != 3:
+                case "part-info" when expression.Items.Count < 2:
                     throw new LizpyInternalCompilationException(
-                        $"Invalid function call, argument count mismatch. Expected: 2, Actual: {expression.Items.Count - 1}",
+                        $"Invalid function call, argument count mismatch. Expected: 1-2, Actual: {expression.Items.Count - 1}",
                         expression
                     );
                 case "part-info": {
@@ -197,9 +197,25 @@ namespace Lizpy.Builtin.Expressions.Craft {
                                 new XAttribute("style", "part"),
                                 new XAttribute("property", property.XmlName)));
 
-                    exp.InitializeExpressions(
-                        state.CompileExpression(expression.Items[2])
-                    );
+                    if (property.XmlName.EndsWith("ID")) {
+                        if (expression.Items.Count != 2) {
+                            throw new LizpyInternalCompilationException(
+                                $"Invalid function call, argument count mismatch. Expected: 2, Actual: {expression.Items.Count - 1}",
+                                expression
+                            );
+                        }
+                    } else {
+                        if (expression.Items.Count != 3) {
+                            throw new LizpyInternalCompilationException(
+                                $"Invalid function call, argument count mismatch. Expected: 3, Actual: {expression.Items.Count - 1}",
+                                expression
+                            );
+                        }
+
+                        exp.InitializeExpressions(
+                            state.CompileExpression(expression.Items[2])
+                        );
+                    }
 
                     return exp;
                 }

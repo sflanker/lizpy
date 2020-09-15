@@ -17,7 +17,7 @@ namespace Lizpy.Builtin.Expressions.Craft {
             "pci->local"
         };
 
-        public string Namespace => "craft";
+        public string Namespace => String.Empty;
         public IEnumerable<string> SupportedSymbols => CoordinateConversionSymbols;
 
         public ProgramExpression CompileFunction(CompilerState state, ListExpression expression) {

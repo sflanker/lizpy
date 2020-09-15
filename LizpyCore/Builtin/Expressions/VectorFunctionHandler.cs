@@ -28,9 +28,9 @@ namespace Lizpy.Builtin.Expressions {
         private static readonly IReadOnlyDictionary<String, (String op, Int32 argCount)> FunctionOpMapping =
             new Dictionary<String, (String, Int32)> {
                 { "length", ("length", 1) },
-                { "x", ("length", 1) },
-                { "y", ("length", 1) },
-                { "z", ("length", 1) },
+                { "x", ("x", 1) },
+                { "y", ("y", 1) },
+                { "z", ("z", 1) },
                 { "dot", ("dot", 2) },
                 { "cross", ("cross", 2) },
                 { "angle", ("angle", 2) },

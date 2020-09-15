@@ -48,7 +48,7 @@ ironmeta LizpyParser<char, SExpression> : Matcher<char, SExpression> {
         "true":v -> { return new BooleanExpression(v.StartIndex, v.NextIndex, true); } |
          "false":v -> { return new BooleanExpression(v.StartIndex, v.NextIndex, false); };
 
-    Symbol = /[A-Za-z\`~!@#$%^&*\-_=+|;:,<\.>\/?][0-9A-Za-z\`~!@#$%^&*\-_=+|;:',<\.>\/?]*/:s Metadata?:m ->
+    Symbol = /[A-Za-z\`~!@#$%^&*\-_=+|:<\.>\/?][0-9A-Za-z\`~!@#$%^&*\-_=+|:',<\.>\/?]*/:s Metadata?:m ->
         { return new SymbolExpression(s.StartIndex, s.NextIndex, s.InputString(), m.Results.Count() > 0 ? m.ResultAs<MapExpression>() : null); };
 
     Metadata = /\s+^/ Map:m -> { return m; };
