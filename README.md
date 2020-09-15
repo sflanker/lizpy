@@ -18,7 +18,7 @@ Here are some examples of lists:
 (= (+ 1 1) 2)
 ```
 
-Note: Lists in Lizpy **do not** represent the data structures that can be stored in variables in Vizzy (those have [their own syntax](#Arrays)). Lists are used to represent a variety of special forms including calling functions).
+Note: Lists in Lizpy **do not** represent the data structures that can be stored in variables in Vizzy (those have [their own syntax](#arrays)). Lists are used to represent a variety of special forms including calling functions).
 
 ### Symbols
 
@@ -233,16 +233,16 @@ List instructions modify the list stored in a list variable. _Note: because of t
 | Function | Description |
 | --- | --- |
 | `(activate-stage!)` | |
-| [`(set-input! <keyword> <number>)`](#Set_Input) |  |
+| [`(set-input! <keyword> <number>)`](#set-input) |  |
 | `(set-target! <string>)` | |
 | `(set-heading! <number>)` | |
 | `(set-pitch! <number>)` | |
-| [`(set-autopilot-mode! <keyword>)`](#Set_Autopilot_Mode) | |
+| [`(set-autopilot-mode! <keyword>)`](#set-autopilot-mode) | |
 | `(set-activation-group! <number> <boolean>)` | |
-| [`(set-time-mode! <keyword>)`](#Set_Time_Mode) | |
+| [`(set-time-mode! <keyword>)`](#set-time-mode) | |
 | `(switch-craft! <number>)` | |
-| [`(set-part-property! <keyword> <number> <expression>)`](#Set_Part_Property) | |
-| [`(set-camera-property! <keyword> <expression>)`](#Set_Camera_Property) | |
+| [`(set-part-property! <keyword> <number> <expression>)`](#set-part-property) | |
+| [`(set-camera-property! <keyword> <expression>)`](#set-camera-property) | |
 
 #### Set Input
 
@@ -430,10 +430,10 @@ These comparison operators only work with numbers.
 
 | Function | Description |
 | --- | --- |
-| [`(craft/info <keyword>)`](#Current_Craft_Info) | Gets information about the current craft. |
-| [`(craft/craft-info <keyword> <number>)`](#Craft_Info_By_Id) | Gets information about other crafts by id. |
+| [`(craft/info <keyword>)`](#current-craft-info) | Gets information about the current craft. |
+| [`(craft/craft-info <keyword> <number>)`](#craft-info-by-id) | Gets information about other crafts by id. |
 | `(craft/craft-id <string>)` | Gets the id of a craft by name |
-| [`(craft/part-info <keyword> <number?>)`](#Part_Info) | Gets information about a part by id, or about parts on the craft in general. |
+| [`(craft/part-info <keyword> <number?>)`](#part-info) | Gets information about a part by id, or about parts on the craft in general. |
 | `(craft/part-id <string>)` | Gets the id of a part by name |
 
 #### Current Craft Info
