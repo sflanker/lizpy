@@ -181,7 +181,7 @@ Some events implicitly introduce arguments into the local scope. These arguments
 
 ### Program Flow Instructions
 
-| Function | Description |
+| Function&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Description |
 | --- | --- |
 | `(wait <number>)` | Wait `<number>` seconds. |
 | `(wait-until <condition>)` | Wait until `<expression>` evaluates to `true`. |
@@ -202,7 +202,7 @@ Some events implicitly introduce arguments into the local scope. These arguments
 
 ### Variable Instructions
 
-| Function | Description |
+| Function&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Description |
 | --- | --- |
 | `(set! <symbol> <expression>)` | Sets the a global variable to the specified value. The variable must be explicitly declared. |
 | `(change! <symbol> <interval>)` | Changes a global variable by adding the specified numeric value to the current value. |
@@ -211,7 +211,7 @@ Some events implicitly introduce arguments into the local scope. These arguments
 
 List instructions modify the list stored in a list variable. _Note: because of the limitations of lists in Vizzy, list can only contain strings (although most value types can be implicitly converted to and from strings)._
 
-| Function | Description |
+| Function&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Description |
 | --- | --- |
 | `(add! <symbol> <expression>)` | Adds `<expression>` to the end of the list stored in the specified global variable. |
 | `(insert! <symbol> <number> <expression>)` | Inserts `<expression>` into the list stored in the specified global variable at the specified position (index by 1). |
@@ -223,7 +223,7 @@ List instructions modify the list stored in a list variable. _Note: because of t
 
 ### Broadcast Instructions
 
-| Function | Description |
+| Function&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Description |
 | --- | --- |
 | `(broadcast! <string> <expression>)` | Broadcast a message to event listeners in this flight program (including imported flight programs). |
 | `(broadcast-to-craft! <string> <expression>)` | Broadcast a message to event listeners in all Flight Programs in the current craft. |
@@ -329,7 +329,7 @@ Sets a property value for a part with the specified id. This function takes thre
 
 Math functions in lisp look a little different than normal algebra because the function symbol always comes first. For operations where order is important, the operation will be performed as if the first number is on the left hand side, and the second number is on the right hand side as the traditional notation (i.e. `(- 4 3)` in list is equivalent to `4 - 3` in standard notation and would return `1`).
 
-| Function&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Description |
+| Function&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Description |
 | --- | --- |
 | `(+ <number> <number>)` | Addition. |
 | `(- <number> <number>)` | Subtraction. |
@@ -386,7 +386,7 @@ These comparison operators only work with numbers.
 
 ### String Expressions
 
-| Function | Description |
+| Function&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Description |
 | --- | --- |
 | `(string= <string> <string>)` | Checks if two strings are equal. |
 | `(string-contains <string> <sub-string>)` | Checks if the first string contains the second string. |
@@ -398,7 +398,7 @@ These comparison operators only work with numbers.
 
 ### Vector Expressions
 
-| Function | Description |
+| Function&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Description |
 | --- | --- |
 | `(vector <number-x> <number-y> <number-z>)` | Creates a vector from three numbers. |
 | `(vector/length <vector>)` | Returns the length (a.k.a. magnitude) of a vector. |
@@ -426,7 +426,7 @@ These comparison operators only work with numbers.
 
 ### Craft Expressions
 
-| Function | Description |
+| Function&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Description |
 | --- | --- |
 | [`(craft/info <keyword>)`](#current-craft-info) | Gets information about the current craft. |
 | [`(craft/craft-info <keyword> <number>)`](#craft-info-by-id) | Gets information about other crafts by id. |
@@ -552,7 +552,7 @@ These comparison operators only work with numbers.
 
 ### Coordinate Conversion
 
-| Function | Description |
+| Function&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Description |
 | --- | --- |
 | `(pci->lat-lon-agl <vector>)` | Converts the PCI vector to a (latitude, longitude, AGL) vector. |
 | `(lat-lon-agl->pci <vector>)` | Converts the (latitude, longitude, AGL) vector to a PCI vector. |
