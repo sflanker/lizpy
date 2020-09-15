@@ -352,7 +352,6 @@ Math functions in lisp look a little different than normal algebra because the f
 | `(asin <number>)` | The inverse sine of a value from -1 to 1. |
 | `(acos <number>)` | The inverse cosine of a value from -1 to 1. |
 | `(atan <number>)` | The inverse tangent of a value from -1 to 1. |
-
 | `(atan2 <number> <number>)` | Returns the inverse tangent given the opposite and adjacent sides of a right triangle. `(atan2 x y)` is similar to `(atan (/ x y))` except that it returns the correct value when either or both of x and y are negative. |
 | `(sinh <number>)` | The hyperbolic sine of an angle specified in radians. |
 | `(cosh <number>)` | The hyperbolic cosine of an angle specified in radians. |
@@ -360,7 +359,6 @@ Math functions in lisp look a little different than normal algebra because the f
 | `(asinh <number>)` | The inverse hyperbolic sine of a value from -1 to 1. |
 | `(acosh <number>)` | The inverse hyperbolic cosine of a value from -1 to 1. |
 | `(atanh <number>)` | The inverse hyperbolic tangent of a value from -1 to 1. |
-
 | `(rand <number> <number>)` | Return a random number in between the specified bounds (inclusive). |
 
 ### Comparisons
