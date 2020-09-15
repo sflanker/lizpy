@@ -329,7 +329,7 @@ Sets a property value for a part with the specified id. This function takes thre
 
 Math functions in lisp look a little different than normal algebra because the function symbol always comes first. For operations where order is important, the operation will be performed as if the first number is on the left hand side, and the second number is on the right hand side as the traditional notation (i.e. `(- 4 3)` in list is equivalent to `4 - 3` in standard notation and would return `1`).
 
-| Function | Description |
+| Function&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Description |
 | --- | --- |
 | `(+ <number> <number>)` | Addition. |
 | `(- <number> <number>)` | Subtraction. |
