@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 using Lizpy.Compiler;
 using Lizpy.Internal;
 using Lizpy.Syntax;
+using ModApi.Craft.Program;
 using ModApi.Craft.Program.Instructions;
 
 namespace Lizpy.Builtin.Instructions {
@@ -30,21 +32,27 @@ namespace Lizpy.Builtin.Instructions {
             var function = ((SymbolExpression)expression.Items[0]).GetLocalName();
 
             String style;
+            Boolean local;
 
             switch (function) {
                 case "broadcast!":
                     style = "broadcast-msg";
+                    local = true;
                     break;
                 case "broadcast-to-craft!":
                     style = "broadcast-msg-craft";
+                    local = false;
                     break;
                 default:
                     throw new NotSupportedException($"Unsupported Symbol {expression.Items[0]}");
             }
 
-            var instruction = new BroadcastMessageInstruction {
-                Style = style
-            };
+            var instruction = (BroadcastMessageInstruction)
+                ProgramSerializer.DeserializeProgramNode(
+                    new XElement("BroadcastMessage",
+                        new XAttribute("local", local),
+                        new XAttribute("style", style))
+                );
 
             instruction.InitializeExpressions(
                 expression.Items.Skip(1).Select(state.CompileExpression).ToArray()

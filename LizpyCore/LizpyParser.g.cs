@@ -1,5 +1,5 @@
 //
-// IronMeta LizpyParser Parser; Generated 2020-09-10 09:58:53Z UTC
+// IronMeta LizpyParser Parser; Generated 2020-09-16 10:30:08Z UTC
 //
 
 using System;
@@ -1184,7 +1184,7 @@ namespace Lizpy
             // AND 1
             int _start_i1 = _index;
 
-            // REGEXP [A-Za-z\`~!@#$%^&*\-_=+|;:,<\.>\/?][0-9A-Za-z\`~!@#$%^&*\-_=+|;:',<\.>\/?]*
+            // REGEXP [A-Za-z\`~!@#$%^&*\-_=+|:<\.>\/?][0-9A-Za-z\`~!@#$%^&*\-_=+|:',<\.>\/?]*
             _ParseRegexp(_memo, ref _index, _re3);
 
             // BIND s
@@ -2103,7 +2103,7 @@ namespace Lizpy
         static readonly Verophyle.Regexp.StringRegexp _re0 = new Verophyle.Regexp.StringRegexp(@"[^\n]+");
         static readonly Verophyle.Regexp.StringRegexp _re1 = new Verophyle.Regexp.StringRegexp(@"[0-9]");
         static readonly Verophyle.Regexp.StringRegexp _re2 = new Verophyle.Regexp.StringRegexp(@"[^""\\]");
-        static readonly Verophyle.Regexp.StringRegexp _re3 = new Verophyle.Regexp.StringRegexp(@"[A-Za-z\`~!@#$%^&*\-_=+|;:,<\.>\/?][0-9A-Za-z\`~!@#$%^&*\-_=+|;:',<\.>\/?]*");
+        static readonly Verophyle.Regexp.StringRegexp _re3 = new Verophyle.Regexp.StringRegexp(@"[A-Za-z\`~!@#$%^&*\-_=+|:<\.>\/?][0-9A-Za-z\`~!@#$%^&*\-_=+|:',<\.>\/?]*");
         static readonly Verophyle.Regexp.StringRegexp _re4 = new Verophyle.Regexp.StringRegexp(@"\s+^");
 
     } // class LizpyParser

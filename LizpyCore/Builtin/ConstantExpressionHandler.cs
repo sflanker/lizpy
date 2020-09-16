@@ -23,7 +23,9 @@ namespace Lizpy.Builtin {
                 case INumberExpression number:
                     return new ConstantExpression(number.AsDouble());
                 case BooleanExpression boolExpression:
-                    return new ConstantExpression(boolExpression.Value);
+                    return new ConstantExpression(boolExpression.Value) {
+                        Style = boolExpression.Value.ToString().ToLowerInvariant()
+                    };
                 case StringExpression stringExpression:
                     return new ConstantExpression(stringExpression.Value);
                 default:

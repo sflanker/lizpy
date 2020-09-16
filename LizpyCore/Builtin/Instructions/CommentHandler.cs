@@ -30,7 +30,7 @@ namespace Lizpy.Builtin.Instructions {
                 );
             }
 
-            var commentInstruction = new LogMessageInstruction {
+            var commentInstruction = new CommentInstruction {
                 Style = "comment"
             };
 

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Lizpy.Compiler;
 using Lizpy.Internal;
 using Lizpy.Syntax;
+using ModApi.Craft.Program;
+using ModApi.Craft.Program.Expressions;
 using ModApi.Craft.Program.Instructions;
 
 namespace Lizpy.Builtin.Instructions {
@@ -32,16 +34,10 @@ namespace Lizpy.Builtin.Instructions {
                 Style = "display"
             };
 
-            if (expression.Items.Count == 2) {
-                displayInstruction.InitializeExpressions(
-                    state.CompileExpression(expression.Items[1])
-                );
-            } else {
-                displayInstruction.InitializeExpressions(
-                    state.CompileExpression(expression.Items[1]),
-                    state.CompileExpression(expression.Items[2])
-                );
-            }
+            displayInstruction.InitializeExpressions(
+                state.CompileExpression(expression.Items[1]),
+                expression.Items.Count == 3 ? state.CompileExpression(expression.Items[2]) : (ProgramExpression)new ConstantExpression(7)
+            );
 
             return new ProgramInstruction[] { displayInstruction };
         }

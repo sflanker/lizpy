@@ -4,6 +4,7 @@ using System.Linq;
 using Lizpy.Compiler;
 using Lizpy.Internal;
 using Lizpy.Syntax;
+using ModApi.Craft.Program.Expressions;
 using ModApi.Craft.Program.Instructions;
 
 namespace Lizpy.Builtin.Instructions {
@@ -112,6 +113,8 @@ namespace Lizpy.Builtin.Instructions {
 
                 InitializeIfInstruction(state, expression, ifInstruction);
 
+                var results = new List<ProgramInstruction>(new[] { ifInstruction });
+
                 if (expression.Items.Count == 4) {
                     ProgramInstruction previousBlock = ifInstruction;
                     var nextExpression = expression.Items[3];
@@ -137,6 +140,7 @@ namespace Lizpy.Builtin.Instructions {
 
                             previousBlock.Next = elseIfBlock;
                             previousBlock = elseIfBlock;
+                            results.Add(elseIfBlock);
 
                             if (elseExpression.Items.Count == 4) {
                                 nextExpression = elseExpression.Items[3];
@@ -149,20 +153,22 @@ namespace Lizpy.Builtin.Instructions {
                                 Style = "else"
                             };
 
+                            // Else blocks are actually ElseIf blocks with a hidden true condition
+                            elseBlock.InitializeExpressions(new ConstantExpression(true));
+
                             var instructions = state.CompileInstruction(elseExpression);
 
                             elseBlock.FirstChild = instructions.First();
                             previousBlock.Next = elseBlock;
-                            previousBlock = elseBlock;
+                            results.Add(elseBlock);
 
                             break;
                         }
                     }
 
-                    return new[] { previousBlock };
-                } else {
-                    return new ProgramInstruction[] { ifInstruction };
                 }
+
+                return results.ToArray();
             } else if (function == "cond") {
                 /* (cond
                  *     condition1 instruction1
@@ -184,6 +190,8 @@ namespace Lizpy.Builtin.Instructions {
                 ifInstruction.InitializeExpressions(state.CompileExpression(expression.Items[1]));
                 ifInstruction.FirstChild = state.CompileInstruction(expression.Items[2]).First();
 
+                var results = new List<ProgramInstruction>(new[] { ifInstruction });
+
                 var previousInstruction = ifInstruction;
                 for (var i = 3; i < expression.Items.Count; i++) {
                     if (i + 1 < expression.Items.Count) {
@@ -199,6 +207,7 @@ namespace Lizpy.Builtin.Instructions {
 
                         previousInstruction.Next = elseIfInstruction;
                         previousInstruction = elseIfInstruction;
+                        results.Add(elseIfInstruction);
                     } else {
                         // Else block
                         var elseInstruction = new ElseIfInstruction {
@@ -212,10 +221,11 @@ namespace Lizpy.Builtin.Instructions {
 
                         previousInstruction.Next = elseInstruction;
                         previousInstruction = elseInstruction;
+                        results.Add(elseInstruction);
                     }
                 }
 
-                return new ProgramInstruction[] { previousInstruction };
+                return results.ToArray();
             } else {
                 throw new NotSupportedException($"Unsupported Symbol {expression.Items[0]}");
             }
