@@ -433,6 +433,7 @@ These comparison operators only work with numbers.
 | `(craft/craft-id <string>)` | Gets the id of a craft by name |
 | [`(craft/part-info <keyword> <number?>)`](#part-info) | Gets information about a part by id, or about parts on the craft in general. |
 | `(craft/part-id <string>)` | Gets the id of a part by name |
+| `(craft/activation-group <number>)` | Gets the state of the specified activation group. |
 
 #### Current Craft Info
 

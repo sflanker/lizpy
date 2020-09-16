@@ -12,6 +12,7 @@ namespace Lizpy.Builtin.Expressions.Craft {
     public class CraftPropertyFunctionHandler : IExpressionFunctionHandler {
         private static readonly String[] CraftPropertySymbols = {
             "info",
+            "activation-group",
             "craft-info",
             "craft-id",
             "part-info",
@@ -81,6 +82,22 @@ namespace Lizpy.Builtin.Expressions.Craft {
                                 "CraftProperty",
                                 new XAttribute("style", $"prop-{property.Category.ToLower()}"),
                                 new XAttribute("property", property.XmlName)));
+
+                    return exp;
+                }
+                case "activation-group" when expression.Items.Count != 2:
+                    throw new LizpyInternalCompilationException(
+                        $"Invalid function call, argument count mismatch. Expected: 1, Actual: {expression.Items.Count - 1}",
+                        expression
+                    );
+                case "activation-group": {
+                    var exp = new ActivationGroupExpression {
+                        Style = "activation-group"
+                    };
+
+                    exp.InitializeExpressions(
+                        state.CompileExpression(expression.Items[1])
+                    );
 
                     return exp;
                 }
