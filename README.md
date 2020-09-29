@@ -213,13 +213,13 @@ List instructions modify the list stored in a list variable. _Note: because of t
 
 | Function&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Description |
 | --- | --- |
-| `(add! <symbol> <expression>)` | Adds `<expression>` to the end of the list stored in the specified global variable. |
-| `(insert! <symbol> <number> <expression>)` | Inserts `<expression>` into the list stored in the specified global variable at the specified position (index by 1). |
-| `(remove-at! <symbol> <number>)` | Removes the item at the specified position (index by 1) from the list stored in the specified global variable. |
-| `(set! <symbol> <expression>)` | Sets the specified global variable to the specified list expression (usually an Array in Lizpy, or the create function). |
-| `(clear! <symbol>)` | Removes all items from the list stored in the specified global variable. |
-| `(sort! <symbol>)` | Sorts the specified list in ascending order. |
-| `(reverse! <symbol>)` | Reverses the order of the items in the specified list. |
+| `(list/add! <symbol> <expression>)` | Adds `<expression>` to the end of the list stored in the specified global variable. |
+| `(list/insert! <symbol> <number> <expression>)` | Inserts `<expression>` into the list stored in the specified global variable at the specified position (index by 1). |
+| `(list/remove-at! <symbol> <number>)` | Removes the item at the specified position (index by 1) from the list stored in the specified global variable. |
+| `(list/set-at! <symbol> <expression>)` | Sets the specified global variable to the specified list expression (usually an Array in Lizpy, or the create function). |
+| `(list/clear! <symbol>)` | Removes all items from the list stored in the specified global variable. |
+| `(list/sort! <symbol>)` | Sorts the specified list in ascending order. |
+| `(list/reverse! <symbol>)` | Reverses the order of the items in the specified list. |
 
 ### Broadcast Instructions
 
@@ -232,17 +232,17 @@ List instructions modify the list stored in a list variable. _Note: because of t
 
 | Function | Description |
 | --- | --- |
-| `(activate-stage!)` | |
-| [`(set-input! <keyword> <number>)`](#set-input) |  |
-| `(set-target! <string>)` | |
-| `(set-heading! <number>)` | |
-| `(set-pitch! <number>)` | |
-| [`(set-autopilot-mode! <keyword>)`](#set-autopilot-mode) | |
-| `(set-activation-group! <number> <boolean>)` | |
-| [`(set-time-mode! <keyword>)`](#set-time-mode) | |
-| `(switch-craft! <number>)` | |
-| [`(set-part-property! <keyword> <number> <expression>)`](#set-part-property) | |
-| [`(set-camera-property! <keyword> <expression>)`](#set-camera-property) | |
+| `(craft/activate-stage!)` | |
+| [`(craft/set-input! <keyword> <number>)`](#set-input) |  |
+| `(craft/set-target! <string>)` | |
+| `(craft/set-heading! <number>)` | |
+| `(craft/set-pitch! <number>)` | |
+| [`(craft/set-autopilot-mode! <keyword>)`](#set-autopilot-mode) | |
+| `(craft/set-activation-group! <number> <boolean>)` | |
+| [`(craft/set-time-mode! <keyword>)`](#set-time-mode) | |
+| `(craft/switch-craft! <number>)` | |
+| [`(craft/set-part-property! <keyword> <number> <expression>)`](#set-part-property) | |
+| [`(craft/set-camera-property! <keyword> <expression>)`](#set-camera-property) | |
 
 #### Set Input
 

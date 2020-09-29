@@ -61,7 +61,7 @@ namespace Lizpy.Builtin.Instructions.Craft {
             var inst = (SetCraftPropertyInstruction)
                 ProgramSerializer.DeserializeProgramNode(
                     new XElement(
-                        "CraftProperty",
+                        "SetCraftProperty",
                         new XAttribute("style", "set-part"),
                         new XAttribute("property", property.XmlName)));
 

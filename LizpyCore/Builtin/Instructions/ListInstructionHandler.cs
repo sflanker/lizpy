@@ -29,7 +29,7 @@ namespace Lizpy.Builtin.Instructions {
                 // Use clojure style (assoc list index item) order
                 { "insert!", ("insert", new[] { 0, 2, 1 }) },
                 { "remove-at!", ("remove", new[] { 0, 1 }) },
-                { "set!", ("set", new[] { 0, 2, 1 }) },
+                { "set-at!", ("set", new[] { 0, 2, 1 }) },
                 { "clear!", ("clear", new[] { 0 }) },
                 { "sort!", ("sort", new[] { 0 }) },
                 { "reverse!", ("reverse", new[] { 0 }) },

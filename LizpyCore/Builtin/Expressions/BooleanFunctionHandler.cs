@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Lizpy.Compiler;
 using Lizpy.Internal;
 using Lizpy.Syntax;
@@ -48,25 +49,41 @@ namespace Lizpy.Builtin.Expressions {
 
                 return operation;
             } else {
-                if (expression.Items.Count != 3) {
+                if (expression.Items.Count < 3) {
                     throw new LizpyInternalCompilationException(
-                        $"Invalid function call, argument count mismatch. Expected: 2, Actual: {expression.Items.Count - 1}",
+                        $"Invalid function call, argument count mismatch. Expected: 2+, Actual: {expression.Items.Count - 1}",
                         expression
                     );
                 }
 
-                var operation = new BoolOperatorExpression {
-                    Operator = op,
-                    Style = BooleanFunctionStyleMapping[op]
-                };
-
-                operation.InitializeExpressions(
-                    state.CompileExpression(expression.Items[1]),
-                    state.CompileExpression(expression.Items[2])
-                );
+                var operation =
+                    CreateBoolOperatorExpression(
+                        state,
+                        op,
+                        BooleanFunctionStyleMapping[op],
+                        expression.Items.Skip(1).ToList()
+                    );
 
                 return operation;
             }
+        }
+
+        private static BoolOperatorExpression CreateBoolOperatorExpression(
+            CompilerState state, String op, String style, IReadOnlyList<SExpression> tmp) {
+
+            var operation = new BoolOperatorExpression {
+                Operator = op,
+                Style = style
+            };
+
+            operation.InitializeExpressions(
+                state.CompileExpression(tmp[0]),
+                tmp.Count == 2 ?
+                    state.CompileExpression(tmp[1]) :
+                    CreateBoolOperatorExpression(state, op, style, tmp.Skip(1).ToList())
+            );
+
+            return operation;
         }
     }
 }

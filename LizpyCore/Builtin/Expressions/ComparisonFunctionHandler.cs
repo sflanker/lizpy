@@ -44,11 +44,11 @@ namespace Lizpy.Builtin.Expressions {
             var negate = false;
             switch (((SymbolExpression)expression.Items[0]).GetLocalName()) {
                 case "=":
-                    op = "\"";
+                    op = "=";
                     break;
                 case "!=":
                     negate = true;
-                    op = "\"";
+                    op = "=";
                     break;
                 case "<":
                     op = "l";

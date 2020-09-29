@@ -71,11 +71,15 @@ namespace Lizpy.Compiler {
             var variableSet =
                 new SortedSet<String>(variables.Select(v => v.Value));
             if (this.combinedScope.Overlaps(variableSet)) {
-                variableSet.IntersectWith(this.combinedScope);
-                throw new LizpyInternalCompilationException(
-                    $"The specified variable name conflicts with a variable in a parent scope.",
-                    variables.First(v => variableSet.Contains(v.Value))
+                var conflicts = new SortedSet<String>(variableSet);
+                conflicts.IntersectWith(this.combinedScope);
+                Console.Error.WriteLine(
+                    $"The specified variable '{conflicts.First()}' hides a variable with the same name in an enclosing scope."
                 );
+                // throw new LizpyInternalCompilationException(
+                //     $"The specified variable name conflicts with a variable in a parent scope.",
+                //     variables.First(v => variableSet.Contains(v.Value))
+                // );
             }
 
             this.scopes.Push(variableSet);
