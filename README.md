@@ -588,33 +588,35 @@ The Lizpy compiler command line writes it's output to stdout, so you can redirec
 
 This is only vaguely in priority order and some of these are just crazy ideas.
 
-1. Better compiler errors
-    * Currently compilation fails when it hits the first error, it would be better to return multiple errors (of course this is in keeping with Clojure which has terrible compiler error output).
 1. Rearrange metadata to make it work like Clojure
-1. Support for VizzyGL and Vizzy++ Extensions
-1. Make `and`/`or`/`min`/`max`/`<`/`<=`/`>`/`>=` support variable numbers of arguments
-1. Case statements.
-1. More built-in helper functions
-    1. Vector with-axis (i.e. `(with-axis vec :x 1)` is the same as `(vector 1 (vector/y vec) (vector/z vec))`)
-    1. Vector reject (returns the component of one vector that is perpendicular to another).
-    1. Math & physics constants: PI, e, c, G
 1. `displayf` and `logf` variants that compose `display`/`log` and `format`
+1. Case statements.
 1. Let block (for the declaration of helper variables in expressions).
     * A let block would be transformed into a custom expression with arguments for each local variable declaration.
+1. Higher order functions, anonymous functions, partial application, and function composition.
+    * Declare a function that takes a function as an argument (higher order function).
+    * Where ever that function is used, an anonymous function or existing expression name must be specified for that argument.
+    * For each usage of the higher order function, a unique custom expression is created where the named or anonymous function is inlined into the expression definition.
+    * This will make `reduce` possible, and will also be useful for things like `map` and `filter` when we get list construction support.
+1. Make the `for` loop construct take an anonymous function instead of a list of instructions so that the symbol for the counter can be user specified, instead of always being `i`
+1. Automatic position generation (for each top level declaration, if it has no explicit position, generate a position so that it is below the declaration before it).
+1. Vizzy -> Lizpy decompilation
+1. Better compiler errors
+    * Currently compilation fails when it hits the first error, it would be better to return multiple errors (of course this is in keeping with Clojure which has terrible compiler error output).
+1. More built-in helper functions
+    1. Vector with-axis (i.e. `(vector/with-component vec :x 1)` is the same as `(vector 1 (vector/y vec) (vector/z vec))`)
+    1. Vector reject (returns the component of one vector that is perpendicular to another).
+    1. Math & physics constants: PI, e, c, G
+1. Support for VizzyGL and Vizzy++ Extensions
 1. Strong typing/type checking
     * Help people avoid mistakes like using a vector where a number is required or vice versa.  
     * Static typing? That wouldn't be very Clojure-esque. 
     * Type hints?
     * Type inference?
     * It would be nice to provide multiple implementations depending on the type, like the equals operator (which needs different implementations for numbers vs. strings). However runtime type checking isn't really an option since it would hurt performance.
-1. Higher order functions, anonymous functions, partial application, and function composition.
-    * Declare a function that takes a function as an argument (higher order function).
-    * Where ever that function is used, an anonymous function or existing expression name must be specified for that argument.
-    * For each usage of the higher order function, a unique custom expression is created where the named or anonymous function is inlined into the expression definition.
-    * This will make `reduce` possible, and will also be useful when we get list construction support.
 1. Macros (i.e. Lizpy that runs at compile time to generate more Lizpy).
 1. Import namespace aliasing
-1. Support for display message styling
+1. Support for display message styling (TextMeshPro)
 1. Support for associative arrays (a.k.a maps or dictionaries)
     * Stored as sorted lists of key/value pairs (every other item is a key)
 1. Asynchronous programming model
@@ -623,6 +625,23 @@ This is only vaguely in priority order and some of these are just crazy ideas.
         * Awaiting a Promise is waiting for the result to be ready
     * Option 2. Implement something like Clojure's core.async
 1. Synchronization primitives: semaphore, lock, monitor?
+
+### SimpleRockets2 Integration
+
+Making it possible to edit FlightPrograms as Lizpy inside the game should make Lizpy much easier to use. This will be a separate project that depends on this one. The basic functional requirements are:
+
+* An "Edit Lizpy" menu option in the Flight Program editor
+    * This opens a full screen text editor view with tabs to open multiple flight programs.
+* A separate "Lizpy" directory inside the "FlightPrograms" directory.
+* Synchronization between the Vizzy and Lizpy for each Flight Program
+    * If a flight program has no associated Lizpy program associated with it, generate one.
+    * When a lizpy program is saved to the craft, vizzy gets generated, but a lizpy file should also be generated in `FlightPrograms/Lizpy/CraftPrograms/CraftId_PartId.lizpy`
+    * If a lizpy file already exists for the craft/part containing the flight program being edited, check whether changes have been made to the Vizzy (not sure how to do this). If changes have been made, prompt the user whether they want to redo the Vizzy->Lizpy conversion or open the existing file.
+* The Lizpy editor should allow other saved flight programs to be opened in other tabs. Lizpy flight programs can be saved as named programs, or just saved to the craft, just like Vizzy.
+* A Lizpy program that has errors can be saved as a named program, but it cannot be saved to a craft.
+* All imports should default to being relative to the `FlightPrograms/Lizpy` folder.
+
+Vizzy->Lizpy conversion could be quite tricky. Naively, a hand created Vizzy program should convert fairly easily. However, it will be much more difficult to make it so that a program that was written in Lizpy and converted to Vizzy converts back to Lizpy looking much the same. Obviously Lizpy comments (`;; lines`) would be lost. Another big gotcha is namespaces and imported programs. I think the easiest thing would be to support multiple program declarations in a single Lizpy file and basically smash the imported declarations all into the same file. If the user wants to go back to relying on imports they can delete the other `(program ...)` declarations and re-add the `(imports ...)`. I think pushing people towards a Lizpy only experience is probably better than trying to make the Vizzy<->Lizpy conversions flawless.
 
 ### Blocked Until Vizzy Support
 
