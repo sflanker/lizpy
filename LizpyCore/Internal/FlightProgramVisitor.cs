@@ -36,7 +36,7 @@ namespace Lizpy.Internal {
             }
 
             foreach (var instruction in program.CustomInstructions.ToList()) {
-                var (nextState, resultInstruction) = this.VisitCustomInstruction(instruction, state);
+                var (nextState, resultInstruction) = this.VisitCustomInstructionChain(instruction, state);
                 state = nextState;
 
                 if (resultInstruction != instruction) {
@@ -49,7 +49,7 @@ namespace Lizpy.Internal {
             }
 
             foreach (var (instruction, ix) in program.RootInstructions.Select((inst, ix) => (inst, ix)).ToList()) {
-                var (nextState, resultInstruction) = this.VisitInstruction(instruction, state);
+                var (nextState, resultInstruction) = this.VisitInstructionChain(instruction, state);
                 state = nextState;
 
                 if (resultInstruction != instruction) {
@@ -110,12 +110,37 @@ namespace Lizpy.Internal {
                 }
             }
 
-            return VisitInstructionChain(instruction, VisitNodeExpressionsImpl(instruction, state));
+            return VisitNodeExpressionsImpl(instruction, state);
         }
 
-        private TState VisitInstructionChain(ProgramInstruction rootInstruction, TState state) {
-            var previousInstruction = rootInstruction;
-            var currentInstruction = rootInstruction.Next;
+        private (TState, CustomInstruction) VisitCustomInstructionChain(CustomInstruction customInstruction, TState state) {
+            var (nextState, rootInstruction) = this.VisitCustomInstruction(customInstruction, state);
+
+            if (rootInstruction?.Next != null) {
+                var (finalState, nextInstruction) = this.VisitInstructionChain(rootInstruction.Next, nextState);
+
+                if (nextInstruction != rootInstruction.Next) {
+                    rootInstruction.Next = nextInstruction;
+                }
+
+                return (finalState, rootInstruction);
+            } else {
+                return (nextState, rootInstruction);
+            }
+        }
+
+        private (TState, ProgramInstruction) VisitInstructionChain(ProgramInstruction rootInstruction, TState state) {
+            var (initialState, currentInstruction) = this.VisitInstruction(rootInstruction, state);
+            if (currentInstruction == null) {
+                // The root instruction is being removed
+                return (initialState, null);
+            }
+
+            rootInstruction = currentInstruction;
+            state = initialState;
+
+            var previousInstruction = currentInstruction;
+            currentInstruction = currentInstruction.Next;
 
             while (currentInstruction != null) {
                 var previousNext = currentInstruction.Next;
@@ -154,7 +179,7 @@ namespace Lizpy.Internal {
                 }
             }
 
-            return state;
+            return (state, rootInstruction);
         }
 
         private TState VisitNodeExpressionsImpl(ProgramNode expression, TState state) {

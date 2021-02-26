@@ -145,12 +145,15 @@ namespace Lizpy {
             var state = new CompilerState(this, new FlightProgram());
 
             var input = reader.ReadToEnd();
+            Console.Error.WriteLine("Beginning Main Compilation.");
             CompileImpl(fileName, input, state);
 
             try {
                 foreach (var compilerPass in this.compilerPasses) {
+                    Console.Error.WriteLine($"Beginning Compiler Pass: {compilerPass.GetType().Name}");
                     compilerPass.ApplyPass(state);
                 }
+                Console.Error.WriteLine("All Compiler Passes Complete.");
             } catch (LizpyInternalCompilationException ex) {
                 if (ex is LizpyCompilationException) {
                     throw;
@@ -168,6 +171,7 @@ namespace Lizpy {
             }
 
             if (state.Errors.Any()) {
+                Console.Error.WriteLine($"Compilation Failed ({state.Errors.Count} Errors)");
                 var firstError = state.Errors.First();
                 throw new LizpyCompilationException(
                     firstError.Error,
@@ -178,6 +182,8 @@ namespace Lizpy {
                     0
                 );
             }
+
+            Console.Error.WriteLine("Compilation Complete");
 
             return state.Program;
         }
@@ -193,6 +199,8 @@ namespace Lizpy {
             }
 
             if (result.Success) {
+                Console.Error.WriteLine("Program Successfully Parsed.");
+
                 if (!(result.Result is ListExpression programExpression)) {
                     RaiseException(
                         result.Result,
@@ -221,6 +229,7 @@ namespace Lizpy {
 
                 state.PushNamespace(@namespace);
                 try {
+                    Console.Error.WriteLine($"Processing Program Declarations (namespace: {@namespace})");
                     foreach (var declarationExpression in programExpression.Items.Skip(2)) {
                         if (!(declarationExpression is ListExpression declarationList)) {
                             RaiseException(
